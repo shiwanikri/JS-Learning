@@ -1,0 +1,42 @@
+                Javascript Execution Context
+
+            {} -> Global Execution(this)
+
+            => Global Execution Context
+            => Fuction Execution Context
+            => Eval Execution Context (generally there are two JEC but in some doc Eval Execution Context is also mention but that also comes under Global Execution Context) 
+
+
+            {} -> Memory Creation Phase
+               -> Execution Phase                 
+                                                                   let val1 = 10
+                  1) Global Execution(this)                        let val2 = 5
+                  2) Memory Phase                                  function addNum(num1 + num2){
+                        val1 -> undefined                                let total = num1 + num2
+                        val2 -> undefined                                return total
+                        addNum -> definition                            }               
+                        result1 -> undefined                       let result1 = addNum(val1, val2)
+                        result2 -> undefined                       let result2 = addNum(10, 2)          
+
+                    3) Execution Phase
+                           # val1 <- 10
+                           # val2 <- 5
+                           # addNum ->  [new variable environment   +  Execution thread]
+                           --------------------------------------------------           |
+                           |                                |                           |
+                           Memory Phase                     Execution Context           | (delete)
+                           val1 -> undefined                   num1 -> 10               |
+                           val2 -> undefined                   num2 -> 5                |
+                           total -> undefined                  total -> 15  -------------
+                                                             (total returs in Global Execution Context)
+                           # result1 = 15
+                           # result2 = 
+
+                           addNum ->  [new variable environment   +  Execution thread]
+                           --------------------------------------------------           |
+                           |                                |                           |
+                           Memory Phase                     Execution Context           | (delete)
+                           val1 -> undefined                   num1 -> 10               |
+                           val2 -> undefined                   num2 -> 2               |
+                           total -> undefined                  total -> 12  -------------
+                                                             (total returs in Global Execution Context)
